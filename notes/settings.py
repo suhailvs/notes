@@ -36,6 +36,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     'django.contrib.humanize',
+    'crispy_forms',
+
+    'note',
+    'userprofile',
+    
 )
 
 MIDDLEWARE_CLASSES = (
@@ -81,3 +87,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+# this will enable to call {{request.user}}
+from django.conf import global_settings
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    "django.core.context_processors.request",
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR,'templates'),
+)
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
