@@ -12,6 +12,9 @@ import os
 from django.views.generic.base import View
 from django.contrib import messages
 
+def social_login(request):
+	return render(request,'userprofile/login.html')
+
 def profile(request):
 
 	#p_details=ProfileDetails.objects.get()

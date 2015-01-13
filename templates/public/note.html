@@ -3,7 +3,7 @@
 {% block title %}{{note.title|slugify|truncatechars:60}} - {% endblock %}
 {% block metatitle %}"{{note.title}}"{% endblock %}
 {% block metadescription %}"{{note.note}}"{% endblock %}
-{% block metaurl %}"http://flipnotes.net/note/{{note.pk}}/{{note.title|slugify|truncatechars:60}}"{% endblock %}
+{% block metaurl %}"http://simplenote.in/note/{{note.pk}}/{{note.title|slugify|truncatechars:60}}"{% endblock %}
 
 {% block csslinks %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/markdownpreview.css">
