@@ -43,11 +43,11 @@
 		</div>
 		<div class="form-group">
 	  		<label class="control-label">Tags: </label>
-		  	<select data-placeholder="Choose Tags..." class="chzn-select" multiple style="width:350px;" name="tags">	  		
+		  	<select data-placeholder="Choose Tags..." class="chzn-select" multiple style="width:350px;" id="chzntag" name="tags">	  		
 		  		{% for tag in tags %}				
 					<option value="{{ tag.pk }}"{% if tag in nt.tags.all %} selected{% endif %}>{{ tag.name }}</option>
 				{% endfor %}		    
-			</select>
+			</select><a href="#" onclick="funCreateTag('{% url 'add_tag' %}','n')" style="text-decoration:none;"> <i class="glyphicon glyphicon-plus"></i> </a>
 		</div>
 
 		<button type="submit" class="btn btn-success">Save Note</button>

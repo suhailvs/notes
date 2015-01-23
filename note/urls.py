@@ -10,5 +10,7 @@ urlpatterns = patterns('note.views',
     url(r'^users/$', 'userlist',name='user_list'),
     url(r'^user/(\d+)/$', 'usernotes',name='user_notes'),    
     url(r'^tags/$', 'taglist', name='tags'),
+    url(r'^addtag/$', 'addtag', name='add_tag'), 
+    
     url(r'^addfolder/$', 'addfolder', name='add_folder'), 
 )

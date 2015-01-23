@@ -1,0 +1,4 @@
+django
+Pillow
+markdown
+django-crispy-forms
