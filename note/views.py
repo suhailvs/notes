@@ -111,5 +111,5 @@ def addfolder(request):
 			fd.save()
 			status,message=1,fd.pk
 	else:status,message=0,'The Folder name must be between 3 and 20 Alphanumeric characters.'
-	return HttpResponse(json.dumps(dict(flag=status,msg=message)), mimetype="application/json")
+	return HttpResponse(json.dumps(dict(flag=status,msg=message)), content_type="application/json")
 	

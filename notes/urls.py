@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('notes.views',   
     url(r'^accounts/profile/$',MyHome.as_view(), name="profile"),
-    url(r'^\+(.{5,500})$','url_note'),
+    url(r'^\+(?P<urlnote>.{5,500})$','url_note'),
     url(r'^ext/$','ext_note'),
     url(r'^ajx/$','ajx',name="ajax_load_to_div"),
     url(r'^deletefolder/$','deletefolder',name="delete_folder"), 

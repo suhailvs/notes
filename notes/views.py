@@ -14,7 +14,8 @@ from django.contrib.auth import authenticate, login
 class MyHome(View):        
     '''The user home page. For root url this view will be called.'''
     def get(self, request):
-    	if not request.user.is_active:return HttpResponse('documentation')
+    	if not request.user.is_active:
+    		return HttpResponseRedirect(reverse('documentation'))
     	tg=Folder.objects.filter(user=request.user).exclude(name__regex=r'^(public|url)$').order_by('name')	
     	
     	#if somebody called simlenote.in/?tags=1&curfolder=all
@@ -47,13 +48,13 @@ def ajx(request):
 		
 @login_required
 def url_note(request,urlnote):
-	splitted=urlnote.split('/',1)
-	note=splitted[0] 
+	# splitted=urlnote.split('/',1)
+	# note=splitted[0] 
+	
 	m_folder=Folder.objects.get(user=request.user,name='url')
-	Notes(user=request.user,title="Note Saved through URL.",folder=m_folder, note=note).save()
-	if len(splitted)>1:
-		success_msg='<script>alert("notes saved successfully");document.location.href="%s";</script>' %splitted[1]
-		return HttpResponse(success_msg)
+	Notes(user=request.user,title="Note Saved through URL.",folder=m_folder, note= urlnote).save()	
+	messages.success(request, 'Notes saved successfully')
+	
 	return HttpResponseRedirect(reverse('home'))
 
 #save note from browser extension.
@@ -85,15 +86,15 @@ def ext_note(request):
 		else:
 			# Return an 'invalid login' error message.
 			n={"islogin": 'no','msg':'invalid username or password' }
-		return HttpResponse(json.dumps(n), mimetype="application/json")
+		return HttpResponse(json.dumps(n), content_type="application/json")
 
 	if 'type' in request.POST:
 		if request.user.is_authenticated():
 			n=loadforms(request.user)
-			return HttpResponse(json.dumps(n), mimetype="application/json")
+			return HttpResponse(json.dumps(n), content_type="application/json")
 			#return HttpResponse('yes')
 		#return HttpResponse('no')		
-		return HttpResponse(json.dumps({"islogin": 'no','msg':'Please Login.'}), mimetype="application/json")
+		return HttpResponse(json.dumps({"islogin": 'no','msg':'Please Login.'}), content_type="application/json")
 	#print request.POST['folder'],request.user.username
 	m_folder=Folder.objects.get(user=request.user,name=request.POST['folder'])
 	print 'going to prin taglist'
