@@ -1,4 +1,7 @@
-django
-Pillow
-markdown
-django-crispy-forms
+Django==1.7
+django-crispy-forms==1.6.1
+Markdown==2.6.9
+Pillow==4.2.1
+gunicorn
+dj-database-url 
+psycopg2

@@ -30,3 +30,7 @@ sitemaps = {
 urlpatterns += patterns('',
  url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
  )
+
+from django.conf import settings
+from django.conf.urls.static import static
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
