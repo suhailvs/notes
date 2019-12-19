@@ -36,7 +36,7 @@ def ajx(request):
 	if curfolder=='all':nts=Notes.objects.filter(user=request.user).order_by('-created')
 	else:
 		#if 'tags' in request.GET:
-		#	print 'tags'
+		#	print('tags')
 		#	nts=Notes.objects.filter(user=request.user,tags__in=request.GET.getlist('tags'),folder__name=curfolder).distinct()
 		nts=Notes.objects.filter(user=request.user,folder__name=curfolder).order_by('-created')
 	if 'tags' in request.GET:
@@ -68,16 +68,16 @@ def loadforms(usr):
 @csrf_exempt
 def ext_note(request):
 	#login check
-	print 'called ext_note'
+	print('called ext_note')
 	if 'username' in request.POST:
 		username = request.POST['username']
 		password = request.POST['password']
-		print username,password
+		print(username,password)
 		user = authenticate(username=username, password=password)
 		if user is not None:
 			if user.is_active:
 				login(request, user)
-				print 'login success'
+				print('login success')
 				n=loadforms(user)
 				# Redirect to a success page.	
 			else:
@@ -95,15 +95,15 @@ def ext_note(request):
 			#return HttpResponse('yes')
 		#return HttpResponse('no')		
 		return HttpResponse(json.dumps({"islogin": 'no','msg':'Please Login.'}), content_type="application/json")
-	#print request.POST['folder'],request.user.username
+	#print(request.POST['folder'],request.user.username)
 	m_folder=Folder.objects.get(user=request.user,name=request.POST['folder'])
-	print 'going to prin taglist'
+	print('going to prin taglist')
 	tgs=request.POST.getlist('tag')
 	for t in tgs[0].split(','):
-		print t
+		print(t)
 
 	tags=Tag.objects.filter(name__in=tgs[0].split(','))
-	print tags
+	print(tags)
 	try:
 		nt=Notes(user=request.user,title=request.POST['title'],folder=m_folder, note=request.POST['note'])
 		nt.save()

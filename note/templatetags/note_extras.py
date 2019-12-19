@@ -1,5 +1,5 @@
 from django import template
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup # from BeautifulSoup import BeautifulSoup
 import markdown as mkdn
 from django.utils.safestring import mark_safe
 from note.models import Notes,Tag
@@ -14,7 +14,7 @@ def markdown(value,smode=None):
 @register.filter
 def markdown_to_plaintext(value):	
 	html = mkdn.markdown(value)
-	return ''.join(BeautifulSoup(html).findAll(text=True))
+	return ''.join(BeautifulSoup(html).find_all(text=True))
 
 @register.filter
 def note_count_in_folder(fdid,usr):	

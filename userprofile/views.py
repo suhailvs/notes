@@ -81,7 +81,7 @@ class profileUpdate(View):
 		return render(request,'userprofile/updateprofile.html',d)
 
 	def post(self,request):
-		print request.POST['dob']
+		print(request.POST['dob'])
 		form1=ProfileForm(request.POST)
 		form2=GMapLocationForm(request.POST)
 		if form1.is_valid() and form2.is_valid():
