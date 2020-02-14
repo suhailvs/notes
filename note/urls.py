@@ -1,16 +1,16 @@
-from django.conf.urls import patterns, include, url
 
-urlpatterns = patterns('note.views',
-    #plese check whar is addnote//
+from django.urls import include, path
+from . import views
+
+urlpatterns = [
     
-    url(r'^addnote/(new|\d+)/$', 'addnote',name='add_note'),
-    url(r'^deletenote/$', 'delnote',name='delete_note'),   
-    url(r'^publicnote/$', 'public',name='public_home'),
-    url(r'^note/(\d+)/', 'publicnote',name='public_note'),
-    url(r'^users/$', 'userlist',name='user_list'),
-    url(r'^user/(\d+)/$', 'usernotes',name='user_notes'),    
-    url(r'^tags/$', 'taglist', name='tags'),
-    url(r'^addtag/$', 'addtag', name='add_tag'), 
-    
-    url(r'^addfolder/$', 'addfolder', name='add_folder'), 
-)
+    path('addnote/<ntid>/', views.addnote,name='add_note'), # url(r'^addnote/(new|\d+)/$', 'addnote',name='add_note'),
+    path('deletenote/', views.delnote,name='delete_note'),   
+    path('publicnote/', views.public,name='public_home'),
+    path('note/<int:userpk>/', views.publicnote,name='public_note'),
+    path('users/', views.userlist,name='user_list'),
+    path('user/<int:userpk>/', views.usernotes,name='user_notes'),    
+    path('tags/', views.taglist, name='tags'),
+    path('addtag/', views.addtag, name='add_tag'), 
+    path('addfolder/', views.addfolder, name='add_folder'), 
+]

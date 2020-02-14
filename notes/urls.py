@@ -1,36 +1,39 @@
-from django.conf.urls import patterns, include, url
+from django.urls import include, path, re_path
 from django.contrib import admin
 from django.views.generic import TemplateView
-from notes.views import MyHome
+from notes import views
+from django.contrib.auth.views import LogoutView
 
-urlpatterns = patterns('',
-    url(r'^$', MyHome.as_view(), name='home'),    
-    url(r'^doc/$', TemplateView.as_view(template_name="graphics.html"),name='documentation'),  
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^notes/', include('note.urls')),
-    url(r'^profile/', include('userprofile.urls')),
-    url(r'^logout/$', 'django.contrib.auth.views.logout',name="auth_logout"),    
-)
+urlpatterns = [
+    path('', views.MyHome.as_view(), name='home'),
+    path('admin/', admin.site.urls),
+    # path('accounts/', include('django.contrib.auth.urls')), 
+    path('doc/', TemplateView.as_view(template_name="graphics.html"),name='documentation'),  
+    path('notes/', include('note.urls')),
+    path('profile/', include('userprofile.urls')),
+    path('logout/', LogoutView.as_view(),name="auth_logout"),
+    
+    # path('logout/', 'django.contrib.auth.views.logout',name="auth_logout"),
+    # path('schools/', include(('schools.urls','schools'),namespace='schools')),
 
-urlpatterns += patterns('notes.views',   
-    url(r'^accounts/profile/$',MyHome.as_view(), name="profile"),
-    url(r'^\+(?P<urlnote>.{5,500})$','url_note'),
-    url(r'^ext/$','ext_note'),
-    url(r'^ajx/$','ajx',name="ajax_load_to_div"),
-    url(r'^deletefolder/$','deletefolder',name="delete_folder"), 
-)
+    path('accounts/profile/', views.MyHome.as_view(), name="profile"),    
+    path('ext/',views.ext_note),
+    path('ajx/',views.ajx,name="ajax_load_to_div"),
+    path('deletefolder/',views.deletefolder,name="delete_folder"), 
+    re_path(r'^\+(?P<urlnote>.{5,500})$',views.url_note),
+]
 
 
 # site map stuffs
+from django.contrib.sitemaps.views import sitemap
 from note.sitemap import NoteSitemap
 sitemaps = {
     'static': NoteSitemap,
 }
+from django.contrib.sitemaps.views import sitemap
+urlpatterns += [
+  re_path(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}),
+]
 
-urlpatterns += patterns('',
- url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
- )
-
-from django.conf import settings
-from django.conf.urls.static import static
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()

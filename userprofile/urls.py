@@ -1,9 +1,10 @@
 
-from django.conf.urls import patterns, include, url
-from userprofile.views import profileUpdate
-urlpatterns = patterns('userprofile.views',
-    url(r'^settings/$', 'profile',name='user_profile'),
-    url(r'^uploadpic/$', 'uploadpic',name='upload_pic'),
-    url(r'^update/$', profileUpdate.as_view(), name='profile_update'),  
-    url(r'^login/$', 'social_login',name="auth_login"),  
-)
+from django.urls import include, path
+from . import views
+
+urlpatterns = [
+	path('settings/', views.profile,name='user_profile'),
+    path('uploadpic/', views.uploadpic,name='upload_pic'),
+    path('update/', views.profileUpdate.as_view(), name='profile_update'),  
+    path('login/', views.social_login,name="auth_login"),  
+]
