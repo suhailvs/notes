@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Associated Social Accounts{% endblock %}
 {% block csslinks %}
-<link rel="stylesheet" href="{{ STATIC_URL }}font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-social.css">
+<link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}">
 
 {% endblock %}
 

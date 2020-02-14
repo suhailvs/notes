@@ -6,7 +6,7 @@ from userprofile.forms import ProfilePictureForm,GMapLocationForm,ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect
 import os
 from django.views.generic.base import View

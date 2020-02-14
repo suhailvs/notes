@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from note.models import Notes,Folder,Tag
 from note.views import limit_data
 from django.db.models import Q
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.views.generic.base import View
